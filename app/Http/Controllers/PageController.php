@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     
-    public function dashboard() {
+    public function dashboard() { 
         $client = new Client([
             'verify' => base_path('cacert.pem'),
         ]);
@@ -30,6 +30,18 @@ class PageController extends Controller
         return view('page.student-affairs.officer', [
             'bgMenu' => 'officer',
             'users' => $users
+        ]);
+    }
+
+    public function item() {
+        return view('page.coperation.item', [
+            'bgMenu' => 'item'
+        ]);
+    }
+
+    public function report() {
+        return view('page.coperation.report', [
+            'bgMenu' => 'report'
         ]);
     }
 

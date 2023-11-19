@@ -510,11 +510,11 @@
                             </li>
                             <li>
                                 <a href="schedules"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Jadwal</a>
+                                    class="{{ $bgMenu == 'schedule' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Jadwal</a>
                             </li>
                             <li>
                                 <a href="classes"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kelas</a>
+                                    class="{{ $bgMenu == 'classes' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Kelas</a>
                             </li>
                         </ul>
                     </li>
@@ -523,13 +523,13 @@
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             aria-controls="dropdown-sales" data-collapse-toggle="dropdown-sales">
                             <svg aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                class="flex-shrink-0 w-6 h-6 {{ $bgMenu == 'report' ? 'text-blue-700' : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white' }} transition duration-75 dark:text-gray-400"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Koperasi</span>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap {{ $bgMenu == 'report' ? 'text-blue-700' : '' }}">Koperasi</span>
                             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -544,11 +544,11 @@
                             </li>
                             <li>
                                 <a href="items"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Barang</a>
+                                    class="{{ $bgMenu == 'item' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Barang</a>
                             </li>
                             <li>
                                 <a href="reports"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Laporan</a>
+                                    class="{{ $bgMenu == 'report' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Laporan</a>
                             </li>
                         </ul>
                     </li>

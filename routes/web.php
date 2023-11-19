@@ -11,6 +11,10 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/officer', [PageController::class, 'officer']);
 
+    Route::get('/items', [PageController::class, 'item']);
+
+    Route::get('/reports', [PageController::class, 'report']);
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

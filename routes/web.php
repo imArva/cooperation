@@ -8,6 +8,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/home', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/officer', [PageController::class, 'officer']);
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware('guest')->group(function(){

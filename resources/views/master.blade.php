@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
         <nav
             class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
@@ -440,7 +439,7 @@
                         </ul>
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
-                                <a href="#"
+                                <a href="logout"
                                     class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
                                     out</a>
                             </li>
@@ -474,7 +473,7 @@
                 </form>
                 <ul class="space-y-2">
                     <li>
-                        <a href="#"
+                        <a href="dashboard"
                             class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white group {{ $bgMenu == 'dashboard' ? 'bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                             <svg aria-hidden="true"
                                 class="w-6 h-6 transition duration-75 dark:text-gray-400 {{ $bgMenu == 'dashboard' ? 'text-white' : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white' }}"
@@ -482,7 +481,7 @@
                                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                             </svg>
-                            <span class="ml-3 {{ $bgMenu == 'dashboard' ? 'text-white' : '' }}">Dashboard</span>
+                            <span class="ml-3 {{ $bgMenu == 'dashboard' ? 'text-white' : '' }}">Dasbor</span>
                         </a>
                     </li>
                     <li>
@@ -490,13 +489,13 @@
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
                             <svg aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                class="flex-shrink-0 w-6 h-6 {{ $bgMenu == 'officer' ? 'text-blue-700' : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white' }} transition duration-75 dark:text-gray-400"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap {{ $bgMenu == 'officer' ? 'text-blue-700' : '' }}">Kesiswaan</span>
                             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -506,16 +505,16 @@
                         </button>
                         <ul id="dropdown-pages" class="hidden py-2 space-y-2">
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
+                                <a href="officer"
+                                    class="{{ $bgMenu == 'officer' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Petugas</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
+                                <a href="schedules"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Jadwal</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
+                                <a href="classes"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kelas</a>
                             </li>
                         </ul>
                     </li>
@@ -530,7 +529,7 @@
                                     d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Sales</span>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Koperasi</span>
                             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -540,16 +539,16 @@
                         </button>
                         <ul id="dropdown-sales" class="hidden py-2 space-y-2">
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+                                <a href="transactions"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
+                                <a href="items"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Barang</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
+                                <a href="reports"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Laporan</a>
                             </li>
                         </ul>
                     </li>

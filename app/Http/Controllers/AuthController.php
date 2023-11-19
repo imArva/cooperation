@@ -74,4 +74,9 @@ class AuthController extends Controller
         return redirect()->intended('login')->with('success', 'Akun anda berhasil dibuat, silahkan login.');
     }
 
+    public function logout() {
+        Auth::logout();
+        return redirect('/');
+    }
+
 }

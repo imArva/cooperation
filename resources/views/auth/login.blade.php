@@ -22,7 +22,7 @@
                     class="flex absolute top-5 text-center text-gray-100 focus:outline-none"><img
                         src="img/65.png" alt="aji"
                         class="object-cover mx-auto w-8 h-8 rounded-full w-10 h-10">
-                    <p class="text-xl ml-3">Koperasi <strong>SMK Negeri Jakarta</strong></p>
+                    <p class="text-xl ml-3">Koperasi <strong>SMK Negeri 65 Jakarta</strong></p>
                 </a>
                 <img src="img/money.png" class="h-96 absolute right-0">
                 <div class="w-full  max-w-md z-10">

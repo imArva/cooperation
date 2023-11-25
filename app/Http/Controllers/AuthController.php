@@ -39,6 +39,27 @@ class AuthController extends Controller
         return redirect()->back()->with('error', 'Kombinasi Email dan Password salah!');
     }
 
+    public function handleApiLogin(Request $request) {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('auth-token')->accessToken;
+
+            return response()->json([
+                'user' => $user,
+                'access_token' => $token,
+            ]);
+        }
+
+        return response()->json(['error' => 'Invalid credentials'], 401);
+    }
+
     public function handleRegister(Request $request) {
         $validator = Validator::make($request->all(), [
             'role' => ['required', 'in:admin,petugas'],

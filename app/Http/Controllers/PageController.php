@@ -4,24 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    
-    public function dashboard() { 
-        $client = new Client([
+
+    protected $client;
+
+    public function __construct() {
+        $this->client = new Client([
             'verify' => base_path('cacert.pem'),
         ]);
+    }
+    
+    public function dashboard() { 
+        try {
+            $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+            $quote = json_decode($response->getBody()->getContents(), true);
 
-        $response = $client->get('https://api.quotable.io/random?minLength=150');
-        $quote = json_decode($response->getBody()->getContents(), true);
-
-        return view('page.dashboard', [
-            'bgMenu' => 'dashboard',
-            'quote' => collect($quote),
-        ]);
+            return view('page.dashboard', [
+                'bgMenu' => 'dashboard',
+                'quote' => collect($quote),
+            ]);
+        } catch (RequestException $e) {
+            return view('page.dashboard', [
+                'bgMenu' => 'dashboard',
+                'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
+            ]);
+        }
     }
 
     public function officer() {

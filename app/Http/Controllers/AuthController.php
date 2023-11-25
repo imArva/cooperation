@@ -41,11 +41,11 @@ class AuthController extends Controller
 
     public function handleApiLogin(Request $request) {
         $request->validate([
-            'username' => 'required',
+            'email' => ['required', 'email'],
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();

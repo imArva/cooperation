@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -45,8 +46,11 @@ class PageController extends Controller
     }
 
     public function item() {
+        $items = Item::all();
+
         return view('page.coperation.item', [
-            'bgMenu' => 'item'
+            'bgMenu' => 'item',
+            'items' => $items
         ]);
     }
 

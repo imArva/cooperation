@@ -9,13 +9,16 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    
-    public function dashboard() { 
-        $client = new Client([
+    protected $client;
+
+    public function __construct() {
+        $this->client = new Client([
             'verify' => base_path('cacert.pem'),
         ]);
-
-        $response = $client->get('https://api.quotable.io/random?minLength=150');
+    }
+    
+    public function dashboard() { 
+        $response = $this->client->get('https://api.quotable.io/random?minLength=150');
         $quote = json_decode($response->getBody()->getContents(), true);
 
         return view('page.dashboard', [

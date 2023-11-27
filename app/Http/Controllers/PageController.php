@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\User;
 use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -18,13 +19,20 @@ class PageController extends Controller
     }
     
     public function dashboard() { 
-        $response = $this->client->get('https://api.quotable.io/random?minLength=150');
-        $quote = json_decode($response->getBody()->getContents(), true);
+        try {
+            $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+            $quote = json_decode($response->getBody()->getContents(), true);
 
-        return view('page.dashboard', [
-            'bgMenu' => 'dashboard',
-            'quote' => collect($quote),
-        ]);
+            return view('page.dashboard', [
+                'bgMenu' => 'dashboard',
+                'quote' => collect($quote),
+            ]);
+        } catch (RequestException $e) {
+            return view('page.dashboard', [
+                'bgMenu' => 'dashboard',
+                'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
+            ]);
+        }
     }
 
     public function officer() {
@@ -37,8 +45,16 @@ class PageController extends Controller
     }
 
     public function item() {
+        $items = Item::orderBy('created_at', 'desc')->get();
+        $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
+        $random = Item::find(1);
+
         return view('page.coperation.item', [
-            'bgMenu' => 'item'
+            'title' => 'Koperasi - Barang',
+            'bgMenu' => 'item',
+            'items' => $items,
+            'filters' => $filters,
+            'random' => $random
         ]);
     }
 

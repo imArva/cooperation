@@ -44,9 +44,9 @@
 
     <div class="h-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <div class="rounded-lg dark:border-gray-600 h-max">
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="p-8 rounded-t-lg" src="img/65.png" alt="product image" />
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
+                <a href="#" class="flex justify-center">
+                    <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/kebab.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
@@ -80,9 +80,9 @@
             </div>
         </div>
         <div class="rounded-lg border-gray-300 dark:border-gray-600 h-max md:h-64">
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="p-8 rounded-t-lg" src="img/65.png" alt="product image" />
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
+                <a href="#" class="flex justify-center">
+                    <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/cilor.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
@@ -116,9 +116,9 @@
             </div>
         </div>
         <div class="rounded-lg border-gray-300 dark:border-gray-600 h-max md:h-64">
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="p-8 rounded-t-lg" src="img/65.png" alt="product image" />
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
+                <a href="#" class="flex justify-center">
+                    <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/burger.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
@@ -152,9 +152,9 @@
             </div>
         </div>
         <div class="rounded-lg border-gray-300 dark:border-gray-600 h-max md:h-64">
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="p-8 rounded-t-lg" src="img/65.png" alt="product image" />
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
+                <a href="#" class="flex justify-center">
+                    <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/maxicampuss.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
@@ -418,8 +418,37 @@
                         
                     @endforelse
 
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th class="px-6 py-4" colspan="4">
+                            {{ $items->links() }}
+                        </th>
+                    </tr>
+
                 </tbody>
             </table>
+
+            <script>
+                $('#items-value').pagination({
+                    dataSource: @json($items->toArray()['data']),
+                    callback: function(data, pagination) {
+                        // template method of yourself
+                        var html = template(data);
+                        dataContainer.html(html);
+                    }
+                })
+
+                // $(document).ready(function() {
+                //     // Inisialisasi Pagination.js
+                //     $('#items-value').pagination({
+                //         dataSource: @json($items->toArray()['data']),
+                //         pageSize: 10, // Jumlah item per halaman
+                //         callback: function(data, pagination) {
+                //             // Update konten daftar item
+                //             $('#items-value').html(data);
+                //         }
+                //     });
+                // });
+            </script>
 
             <script>
                 const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;

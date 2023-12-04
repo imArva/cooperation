@@ -24,11 +24,13 @@ class PageController extends Controller
             $quote = json_decode($response->getBody()->getContents(), true);
 
             return view('page.dashboard', [
+                'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
                 'bgMenu' => 'dashboard',
                 'quote' => collect($quote),
             ]);
         } catch (RequestException $e) {
             return view('page.dashboard', [
+                'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
                 'bgMenu' => 'dashboard',
                 'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
             ]);
@@ -45,7 +47,7 @@ class PageController extends Controller
     }
 
     public function item() {
-        $items = Item::orderBy('created_at', 'desc')->get();
+        $items = Item::orderBy('created_at', 'desc')->paginate(10);
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
         $random = Item::find(1);
 

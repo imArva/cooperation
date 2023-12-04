@@ -43,3 +43,9 @@
     </tr>
     
 @endforelse
+
+<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+    <th class="px-6 py-4" colspan="4">
+        {{ $items->links() }}
+    </th>
+</tr>

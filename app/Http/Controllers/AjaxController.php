@@ -26,19 +26,19 @@ class AjaxController extends Controller
 
     public function filterItem(Request $request) {
         if($request->filter == 'terbaru') {
-            $searchItems = Item::orderBy('created_at', 'desc')->pagination(10);
+            $searchItems = Item::orderBy('created_at', 'desc')->get();
         } elseif($request->filter == 'terlama') {
-            $searchItems = Item::orderBy('created_at', 'asc')->pagination(10);
+            $searchItems = Item::orderBy('created_at', 'asc')->get();
         } elseif($request->filter == 'termahal') {
-            $searchItems = Item::orderBy('harga', 'desc')->pagination(10);
+            $searchItems = Item::orderBy('harga', 'desc')->get();
         } elseif($request->filter == 'termurah') {
-            $searchItems = Item::orderBy('harga', 'asc')->pagination(10);
+            $searchItems = Item::orderBy('harga', 'asc')->get();
         } elseif($request->filter == 'tersedia') {
-            $searchItems = Item::where('stok', '>', 0)->pagination(10);
+            $searchItems = Item::where('stok', '>', 0)->get();
         } elseif($request->filter == 'habis') {
-            $searchItems = Item::where('stok', '<', 1)->pagination(10);
+            $searchItems = Item::where('stok', '<', 1)->get();
         } else {
-            $searchItems = Item::orderBy('created_at', 'desc')->pagination(10);
+            $searchItems = Item::orderBy('created_at', 'desc')->get();
         }
 
         return view('ajax.items', [

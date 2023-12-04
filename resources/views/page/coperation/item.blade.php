@@ -418,24 +418,24 @@
                         
                     @endforelse
 
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    {{-- <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th class="px-6 py-4" colspan="4">
                             {{ $items->links() }}
                         </th>
-                    </tr>
+                    </tr> --}}
 
                 </tbody>
             </table>
 
-            <script>
-                $('#items-value').pagination({
-                    dataSource: @json($items->toArray()['data']),
-                    callback: function(data, pagination) {
-                        // template method of yourself
-                        var html = template(data);
-                        dataContainer.html(html);
-                    }
-                })
+            {{-- <script>
+                // $('#items-value').pagination({
+                //     dataSource: @json($items->toArray()['data']),
+                //     callback: function(data, pagination) {
+                //         // template method of yourself
+                //         var html = template(data);
+                //         dataContainer.html(html);
+                //     }
+                // })
 
                 // $(document).ready(function() {
                 //     // Inisialisasi Pagination.js
@@ -448,7 +448,7 @@
                 //         }
                 //     });
                 // });
-            </script>
+            </script> --}}
 
             <script>
                 const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;

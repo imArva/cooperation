@@ -47,7 +47,7 @@ class PageController extends Controller
     }
 
     public function item() {
-        $items = Item::orderBy('created_at', 'desc')->paginate(10);
+        $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
         $random = Item::find(1);
 

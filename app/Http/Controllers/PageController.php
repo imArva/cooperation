@@ -37,6 +37,13 @@ class PageController extends Controller
         }
     }
 
+    public function messages() {
+        return view('page.messages', [
+            'title' => "Koperasi - Chatting",
+            'bgMenu' => 'chatting'
+        ]);
+    }
+
     public function officer() {
         $users = User::all();
 

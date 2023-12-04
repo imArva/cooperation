@@ -11,6 +11,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/home', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 
+    Route::get('/chatting', [PageController::class, 'messages'])->name('chatting');
+
     Route::get('/officer', [PageController::class, 'officer']);
 
     Route::get('/items', [PageController::class, 'item']);

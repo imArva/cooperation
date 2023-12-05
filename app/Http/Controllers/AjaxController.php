@@ -19,9 +19,11 @@ class AjaxController extends Controller
             })->paginate(10);
         }
 
-        return view('ajax.items', [
-            'items' => $searchItems
-        ]);
+        return response()->json($searchItems);
+
+        // return view('ajax.items', [
+        //     'items' => $searchItems
+        // ]);
     }
 
     public function filterItem(Request $request) {
@@ -41,9 +43,11 @@ class AjaxController extends Controller
             $searchItems = Item::orderBy('created_at', 'desc')->get();
         }
 
-        return view('ajax.items', [
-            'items' => $searchItems
-        ]);
+        return response()->json($searchItems);
+
+        // return view('ajax.items', [
+        //     'items' => $searchItems
+        // ]);
     }
 
 }

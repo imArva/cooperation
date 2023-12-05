@@ -48,6 +48,7 @@ class PageController extends Controller
         $users = User::all();
 
         return view('page.student-affairs.officer', [
+            'title' => "Koperasi - Petugas",
             'bgMenu' => 'officer',
             'users' => $users
         ]);
@@ -69,6 +70,7 @@ class PageController extends Controller
 
     public function report() {
         return view('page.coperation.report', [
+            'title' => "Koperasi - Laporan",
             'bgMenu' => 'report'
         ]);
     }

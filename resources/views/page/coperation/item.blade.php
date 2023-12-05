@@ -472,7 +472,6 @@
                                 'X-CSRF-TOKEN': csrfToken,
                                 'Cache-Control': 'no-cache',
                             },
-
                         });
 
                         

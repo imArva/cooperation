@@ -4,6 +4,15 @@
 
 <main class="p-4 md:ml-64 h-auto pt-20">
 
+    <style>
+        .paginationjs{
+            padding: 10px;
+        }
+        
+    </style>
+
+    <link rel="stylesheet" href="/css/pagination.css">
+
     @if(session('success'))
 
         <div id="toast-success" class="border-t-4 border-green-500 left-1/2 transform -translate-x-1/2 fixed top-5 text-center z-[999] mx-auto mb-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -353,7 +362,8 @@
                     <input type="text" id="search-items" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari barang...">
                 </div>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div id="pagination-container"></div>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="myTable">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
@@ -421,6 +431,8 @@
                 </tbody>
             </table>
 
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/pagination.min.js"></script>
             <script>
                 const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
                 const searchBtn = document.getElementById('search-items');
@@ -474,6 +486,7 @@
                             }
                         });
 
+                        console.log(response.data);
                         return response.data;
                     } catch (error) {
                         console.error("Gagal memuat permintaan", error);
@@ -514,6 +527,113 @@
                         console.error("Gagal menangani permintaan", error);
                     }
                 });
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Initialize pagination
+                    $('#myTable').pagination({
+                        dataSource: @json($items), // Assuming $items is the data for your table
+                        pageSize: 10, // Set the number of items per page
+                        showPageNumbers: true,
+                        showNavigator: true,
+                        callback: function (data, pagination) {
+                            // Update your table with the data for the current page
+                            updateTable(data);
+
+                        }
+                    });
+                });
+
+                var numberFormatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                });
+
+                // Function to update the table with new data
+                function updateTable(data) {
+                    var tableBody = document.getElementById('items-value');
+                    tableBody.innerHTML = ''; // Clear existing table rows
+
+                    // Populate the table with data for the current page
+                    data.forEach(function (item) {
+                        var row = document.createElement('tr');
+                        row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+
+                        // Create and append cells for each column
+                        var cell1 = document.createElement('th');
+                        cell1.setAttribute('scope', 'row');
+                        cell1.className = 'flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white';
+
+                        var image = document.createElement('img');
+                        image.className = 'w-10 h-10 rounded-full';
+                        image.src = 'img/65.png'; // You may want to dynamically set the image source based on item data
+                        image.alt = 'Jese image';
+
+                        var ps3 = document.createElement('div');
+                        ps3.className = 'ps-3';
+
+                        var itemName = document.createElement('div');
+                        itemName.className = 'text-base font-semibold';
+                        itemName.textContent = item.nama_barang; // Assuming 'nama_barang' is a property in your item object
+
+                        var itemDescription = document.createElement('div');
+                        itemDescription.className = 'font-normal text-gray-500';
+                        itemDescription.textContent = item.deskripsi; // Assuming 'deskripsi' is a property in your item object
+
+                        ps3.appendChild(itemName);
+                        ps3.appendChild(itemDescription);
+
+                        cell1.appendChild(image);
+                        cell1.appendChild(ps3);
+
+                        var cell2 = document.createElement('td');
+                        cell2.className = 'px-6 py-4';
+                        cell2.textContent = "Rp. " + numberFormatter.format(item.harga);
+
+                        var cell3 = document.createElement('td');
+                        cell3.className = 'px-6 py-4';
+                        var statusDiv = document.createElement('div');
+                        statusDiv.className = 'flex items-center';
+
+                        if (item.stok < 1) {
+                            var statusBadge = document.createElement('div');
+                            statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-700 me-2';
+                            statusDiv.appendChild(statusBadge);
+                            statusDiv.textContent = 'Habis';
+                        } else if (item.stok < 6 && item.stok > 0) {
+                            var statusBadge = document.createElement('div');
+                            statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-300 me-2';
+                            statusDiv.appendChild(statusBadge);
+                            statusDiv.textContent = 'Sisa ' + item.stok;
+                        } else {
+                            var statusBadge = document.createElement('div');
+                            statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-green-500 me-2';
+                            statusDiv.appendChild(statusBadge);
+                            statusDiv.textContent = 'Tersedia ' + item.stok;
+                        }
+
+                        cell3.appendChild(statusDiv);
+
+                        var cell4 = document.createElement('td');
+                        cell4.className = 'px-6 py-4 text-right';
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = '#';
+                        downloadLink.className = 'font-medium text-blue-600 dark:text-blue-500';
+
+                        var downloadButton = document.createElement('button');
+                        downloadButton.className = 'p-3 bg-blue-700 text-white rounded-lg active:scale-95';
+                        downloadButton.textContent = 'Unduh Laporan';
+
+                        downloadLink.appendChild(downloadButton);
+                        cell4.appendChild(downloadLink);
+
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        row.appendChild(cell3);
+                        row.appendChild(cell4);
+
+                        tableBody.appendChild(row);
+                    });
+                }
             </script>
 
         </div>

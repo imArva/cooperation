@@ -448,6 +448,7 @@
                 const loadFilter = document.getElementById('load-filter');
                 const viewValFilter = document.getElementById('viewValFilter');
                 const remFilter = document.getElementById('rem-filter');
+                let myPagination = null;
 
                 loadLogo.style.display = 'none';
                 loadFilter.style.display = 'none';
@@ -474,6 +475,7 @@
 
                         });
 
+                        
                         return response.data;
                     } catch (error) {
                         console.error("Gagal memuat permintaan", error);
@@ -492,7 +494,6 @@
                             }
                         });
 
-                        console.log(response.data);
                         return response.data;
                     } catch (error) {
                         console.error("Gagal memuat permintaan", error);
@@ -505,7 +506,19 @@
 
                     try {
                         const result = await filterItems(filter);
-                        tableData.innerHTML = result;
+                        if (myPagination) {
+                            myPagination.pagination('destroy');
+                        }
+
+                        myPagination = $('#myTable').pagination({
+                            dataSource: result,
+                            pageSize: 10,
+                            showPageNumbers: true,
+                            showNavigator: true,
+                            callback: function (data, pagination) {
+                                updateTable(data);
+                            }
+                        });
                     } catch (error) {
                         console.error("Gagal menangani permintaan", error);
                     }
@@ -522,10 +535,21 @@
                     loadLogo.style.display = 'inline';
 
                     let value = searchBtn.value;
-
                     try {
                         const result = await fetchItems(value);
-                        tableData.innerHTML = result;
+                        if (myPagination) {
+                            myPagination.pagination('destroy');
+                        }
+
+                        myPagination = $('#myTable').pagination({
+                            dataSource: result.data,
+                            pageSize: 10,
+                            showPageNumbers: true,
+                            showNavigator: true,
+                            callback: function (data, pagination) {
+                                updateTable(data);
+                            }
+                        });
                         loadLogo.style.display = 'none';
                         searchLogo.style.display = 'inline';
                         viewValFilter.innerHTML = 'Filter';
@@ -536,7 +560,7 @@
 
                 document.addEventListener('DOMContentLoaded', function () {
                     // Initialize pagination
-                    $('#myTable').pagination({
+                    myPagination = $('#myTable').pagination({
                         dataSource: @json($items), // Assuming $items is the data for your table
                         pageSize: 10, // Set the number of items per page
                         showPageNumbers: true,
@@ -549,39 +573,39 @@
                     });
                 });
 
-                var numberFormatter = new Intl.NumberFormat('id-ID', {
+                let numberFormatter = new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR'
                 });
 
                 // Function to update the table with new data
-                function updateTable(data) {
-                    var tableBody = document.getElementById('items-value');
+                const updateTable = (data) => {
+                    let tableBody = document.getElementById('items-value');
                     tableBody.innerHTML = ''; // Clear existing table rows
 
                     // Populate the table with data for the current page
                     data.forEach(function (item) {
-                        var row = document.createElement('tr');
+                        let row = document.createElement('tr');
                         row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
 
                         // Create and append cells for each column
-                        var cell1 = document.createElement('th');
+                        let cell1 = document.createElement('th');
                         cell1.setAttribute('scope', 'row');
                         cell1.className = 'flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white';
 
-                        var image = document.createElement('img');
+                        let image = document.createElement('img');
                         image.className = 'w-10 h-10 rounded-full';
                         image.src = 'img/65.png'; // You may want to dynamically set the image source based on item data
                         image.alt = 'Jese image';
 
-                        var ps3 = document.createElement('div');
+                        let ps3 = document.createElement('div');
                         ps3.className = 'ps-3';
 
-                        var itemName = document.createElement('div');
+                        let itemName = document.createElement('div');
                         itemName.className = 'text-base font-semibold';
                         itemName.textContent = item.nama_barang; // Assuming 'nama_barang' is a property in your item object
 
-                        var itemDescription = document.createElement('div');
+                        let itemDescription = document.createElement('div');
                         itemDescription.className = 'font-normal text-gray-500';
                         itemDescription.textContent = item.deskripsi; // Assuming 'deskripsi' is a property in your item object
 
@@ -591,27 +615,27 @@
                         cell1.appendChild(image);
                         cell1.appendChild(ps3);
 
-                        var cell2 = document.createElement('td');
+                        let cell2 = document.createElement('td');
                         cell2.className = 'px-6 py-4';
                         cell2.textContent = "Rp. " + numberFormatter.format(item.harga);
 
-                        var cell3 = document.createElement('td');
+                        let cell3 = document.createElement('td');
                         cell3.className = 'px-6 py-4';
-                        var statusDiv = document.createElement('div');
+                        let statusDiv = document.createElement('div');
                         statusDiv.className = 'flex items-center';
 
                         if (item.stok < 1) {
-                            var statusBadge = document.createElement('div');
+                            let statusBadge = document.createElement('div');
                             statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-700 me-2';
                             statusDiv.appendChild(statusBadge);
                             statusDiv.textContent = 'Habis';
                         } else if (item.stok < 6 && item.stok > 0) {
-                            var statusBadge = document.createElement('div');
+                            let statusBadge = document.createElement('div');
                             statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-300 me-2';
                             statusDiv.appendChild(statusBadge);
                             statusDiv.textContent = 'Sisa ' + item.stok;
                         } else {
-                            var statusBadge = document.createElement('div');
+                            let statusBadge = document.createElement('div');
                             statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-green-500 me-2';
                             statusDiv.appendChild(statusBadge);
                             statusDiv.textContent = 'Tersedia ' + item.stok;
@@ -619,13 +643,13 @@
 
                         cell3.appendChild(statusDiv);
 
-                        var cell4 = document.createElement('td');
+                        let cell4 = document.createElement('td');
                         cell4.className = 'px-6 py-4 text-right';
-                        var downloadLink = document.createElement('a');
+                        let downloadLink = document.createElement('a');
                         downloadLink.href = '#';
                         downloadLink.className = 'font-medium text-blue-600 dark:text-blue-500';
 
-                        var downloadButton = document.createElement('button');
+                        let downloadButton = document.createElement('button');
                         downloadButton.className = 'p-3 bg-blue-700 text-white rounded-lg active:scale-95';
                         downloadButton.textContent = 'Unduh Laporan';
 

@@ -33,8 +33,7 @@
             <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>
         </td>
     </tr>
-
-    <script>updateTable(@json($items));</script>
+    
 @empty
 
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

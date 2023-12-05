@@ -24,15 +24,24 @@ class PageController extends Controller
             $quote = json_decode($response->getBody()->getContents(), true);
 
             return view('page.dashboard', [
+                'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
                 'bgMenu' => 'dashboard',
                 'quote' => collect($quote),
             ]);
         } catch (RequestException $e) {
             return view('page.dashboard', [
+                'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
                 'bgMenu' => 'dashboard',
                 'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
             ]);
         }
+    }
+
+    public function messages() {
+        return view('page.messages', [
+            'title' => "Koperasi - Chatting",
+            'bgMenu' => 'chatting'
+        ]);
     }
 
     public function officer() {

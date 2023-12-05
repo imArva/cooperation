@@ -10,13 +10,13 @@ class AjaxController extends Controller
     
     public function searchItem(Request $request) {
         if($request->search == "" || $request->search == " ") {
-            $searchItems = Item::all();
+            $searchItems = Item::get();
         } else {
             $searchItems = Item::where(function($query) use ($request) {
                 $query->where('nama_barang', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('harga', 'LIKE', '%' . $request->search . '%');
-            })->get();
+            })->paginate(10);
         }
 
         return view('ajax.items', [

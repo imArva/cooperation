@@ -50,18 +50,18 @@
         lockScreen.style.top = '-2000px'
     
         let idleTime = 0,
-            idleThreshold = 20
+            idleThreshold = 180
 
         const resetIdleTime = () => {
             idleTime = 0
         }
 
         const openScreen = (password) => {
-            document.body.style.overflow = 'auto'
             if(password == '123123123') {
                 localStorage.setItem('lock', 'false')
                 lockScreen.style.top = '-2000px'
                 inputPass.value = ''
+                document.body.style.overflow = 'auto'
             }
         }
 

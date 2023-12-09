@@ -541,7 +541,7 @@
                         }
 
                         myPagination = $('#myTable').pagination({
-                            dataSource: result.data,
+                            dataSource: result,
                             pageSize: 10,
                             showPageNumbers: true,
                             showNavigator: true,

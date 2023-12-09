@@ -50,7 +50,7 @@
         lockScreen.style.top = '-2000px'
     
         let idleTime = 0,
-            idleThreshold = 20
+            idleThreshold = 180
 
         const resetIdleTime = () => {
             idleTime = 0

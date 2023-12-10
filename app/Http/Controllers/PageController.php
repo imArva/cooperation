@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\User;
+use App\Events\MyEvent;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
@@ -73,6 +74,11 @@ class PageController extends Controller
             'title' => "Koperasi - Laporan",
             'bgMenu' => 'report'
         ]);
+    }
+
+    public function handleBroad() {
+        event(new MyEvent('Hello, world!'));
+        return response()->json(['message' => 'Event broadcasted']);
     }
 
 }

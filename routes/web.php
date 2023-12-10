@@ -36,4 +36,6 @@ Route::middleware('guest')->group(function(){
 
     Route::post('/login', [AuthController::class, 'handleLogin']);
     Route::post('/register', [AuthController::class, 'handleRegister']);
+
+    Route::get('/broadcast-event', [PageController::class, 'handleBroad']);
 });

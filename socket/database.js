@@ -11,4 +11,15 @@ const knex = require('knex')({
     }
 })
 
-module.exports = knex
+const testConnection = async () => {
+  try {
+    const result = await knex.raw('SHOW TABLES');
+    console.log('Connected to database', process.env.DB_DATABASE);
+    // console.log('Tables:', JSON.stringify(result[0].map(table => table.Tables_in_cooperation)));
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+};
+
+
+module.exports = { database: knex, testConnection }

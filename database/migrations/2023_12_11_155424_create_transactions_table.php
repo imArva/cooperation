@@ -11,14 +11,15 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up() {
-        Schema::create('notifications', function (Blueprint $table) {
+    public function up()
+    {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['unread', 'read', 'flag']);
-            $table->string('title');
-            $table->text('content')->nullable();
-            $table->string('from');
-            $table->string('to');
+            $table->string('officer');
+            $table->date('date');
+            $table->json('items');
+            $table->integer('price');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
@@ -28,7 +29,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down() {
-        Schema::dropIfExists('notifications');
+    public function down()
+    {
+        Schema::dropIfExists('transactions');
     }
 };

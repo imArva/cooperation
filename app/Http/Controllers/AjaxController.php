@@ -16,12 +16,14 @@ class AjaxController extends Controller
                 $query->where('nama_barang', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('harga', 'LIKE', '%' . $request->search . '%');
-            })->paginate(10);
+            })->get();
         }
 
-        return view('ajax.items', [
-            'items' => $searchItems
-        ]);
+        return response()->json($searchItems);
+
+        // return view('ajax.items', [
+        //     'items' => $searchItems
+        // ]);
     }
 
     public function filterItem(Request $request) {
@@ -41,9 +43,11 @@ class AjaxController extends Controller
             $searchItems = Item::orderBy('created_at', 'desc')->get();
         }
 
-        return view('ajax.items', [
-            'items' => $searchItems
-        ]);
+        return response()->json($searchItems);
+
+        // return view('ajax.items', [
+        //     'items' => $searchItems
+        // ]);
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\User;
+use App\Events\MyEvent;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class PageController extends Controller
         $users = User::all();
 
         return view('page.student-affairs.officer', [
+            'title' => "Koperasi - Petugas",
             'bgMenu' => 'officer',
             'users' => $users
         ]);
@@ -69,8 +71,14 @@ class PageController extends Controller
 
     public function report() {
         return view('page.coperation.report', [
+            'title' => "Koperasi - Laporan",
             'bgMenu' => 'report'
         ]);
+    }
+
+    public function handleBroad() {
+        event(new MyEvent('Hello, world!'));
+        return response()->json(['message' => 'Event broadcasted']);
     }
 
 }

@@ -17,7 +17,7 @@ class ItemSeeder extends Seeder
     public function run()
     {
         // Gunakan perulangan untuk membuat data dummy
-        for ($i = 1; $i <= 15; $i++) {
+        for ($i = 1; $i <= 45; $i++) {
             DB::table('items')->insert([
                 'nama_barang' => "Nama Barang $i",
                 'slug' => Str::slug("Nama Barang $i"),

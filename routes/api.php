@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApiController;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Http\Controllers\AuthorizationController;
 
@@ -16,4 +17,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user-profile', function () {
         return response()->json(auth()->user());
     });
+
+    Route::get('/items', [ApiController::class, 'items']);
 });
